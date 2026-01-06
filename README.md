@@ -34,7 +34,8 @@ To allow Proxmox to run within VMware, specific configuration was required:
 - Enable nested virtualization (Virtualize Intel VT-x/EPT or AMD-V/RVI)
 - Adapted network configuration (Bridge or NAT) for Proxmox internet access
 
-![VMware CPU Configuration](Lien_vers_image_vmware_settings.png)
+<img width="750" height="718" alt="image" src="https://github.com/user-attachments/assets/e6e84f8f-27b3-4b10-99dd-c41b764cc4dd" />
+
 
 ## 📸 Part 1: Snapshots (Short-term Protection)
 
