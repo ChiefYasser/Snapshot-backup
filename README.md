@@ -1,86 +1,96 @@
-# 🛡️ Sauvegarde et Restauration de VMs sur Proxmox VE (Disaster Recovery)
+# 🛡️ VM Backup and Restoration on Proxmox VE (Disaster Recovery)
 
-> **Projet :** Mise en œuvre d'une stratégie de continuité d'activité (PCA) et de reprise après sinistre (PRA) dans un environnement virtualisé imbriqué.
+**Project**: Implementation of a Business Continuity Plan (BCP) and Disaster Recovery Plan (DRP) in a nested virtualized environment.
 
----
+## 📋 Overview
 
-## 📋 Présentation
+This project demonstrates the implementation of a resilient infrastructure using Proxmox Virtual Environment (VE). The objective is to master the two pillars of data protection:
 
-Ce projet démontre la mise en place d'une infrastructure résiliente sous **Proxmox Virtual Environment (VE)**. L'objectif est de maîtriser les deux piliers de la protection de données :
+- **Snapshots**: For quick versioning and testing
+- **Backups**: For protection against total data loss
 
-1.  **Les Snapshots (Instantanés) :** Pour le versioning rapide et les tests.
-2.  **Les Backups (Sauvegardes) :** Pour la protection contre la perte totale de données.
+The project was carried out in a **Nested Virtualization** environment, simulating a real datacenter from a standard workstation.
 
-Le projet a été réalisé dans un environnement de **Virtualisation Imbriquée (Nested Virtualization)**, simulant un Datacenter réel à partir d'un poste de travail standard.
+## 🏗️ Lab Architecture
 
----
+The infrastructure is based on a layered architecture:
 
-## 🏗️ Architecture du Lab
-
-L'infrastructure repose sur une architecture en couches :
-
-*   **Hôte Physique :** PC Windows 11 (Réseau Wi-Fi/Ethernet).
-*   **Hyperviseur Niveau 1 :** VMware Workstation Pro/Player (Configuration NAT/Bridge).
-*   **Hyperviseur Niveau 2 :** Proxmox VE 8.x (IP Statique).
-*   **VM Cible (Victime) :** Ubuntu Server 24.04 LTS.
-
+- **Physical Host**: Windows 11 PC (Wi-Fi/Ethernet Network)
+- **Level 1 Hypervisor**: VMware Workstation Pro/Player (NAT/Bridge Configuration)
+- **Level 2 Hypervisor**: Proxmox VE 8.x (Static IP)
+- **Target VM (Victim)**: Ubuntu Server 24.04 LTS
 ```mermaid
 graph TD;
-    A[PC Physique Windows] -->|Héberge| B[VMware Workstation];
-    B -->|Virtualise| C[Proxmox VE];
-    C -->|Héberge| D[VM Ubuntu Server];
-    C -->|Stocke Backups| E[Disque Local];
+    A[Physical PC Windows] -->|Hosts| B[VMware Workstation];
+    B -->|Virtualizes| C[Proxmox VE];
+    C -->|Hosts| D[VM Ubuntu Server];
+    C -->|Stores Backups| E[Local Disk];
+```
 
+## ⚙️ Prerequisites & Configuration
 
-⚙️ Prérequis & Configuration
-Pour permettre à Proxmox de fonctionner dans VMware, une configuration spécifique a été nécessaire :
-Activation de la virtualisation imbriquée (Virtualize Intel VT-x/EPT or AMD-V/RVI).
-Configuration réseau adaptée (Bridge ou NAT) pour l'accès Internet de Proxmox.
-![alt text](Lien_vers_image_vmware_settings.png)
+To allow Proxmox to run within VMware, specific configuration was required:
 
-(Configuration CPU VMware)
-📸 Partie 1 : Les Snapshots (Protection à court terme)
-Scénario : Modification critique du système (Simulation d'erreur humaine).
-Création d'un fichier critique sur la VM Ubuntu (important_data.txt).
-Prise d'un Snapshot nommé "Etat-Stable".
-Incident : Suppression accidentelle du fichier via la commande rm.
-Résolution : Rollback (Retour arrière) via Proxmox.
-Action	Résultat
-Prise du Snapshot	🟢 Succès (État figé)
-Suppression Fichier	🔴 Fichier perdu
-Rollback	🟢 Système restauré en < 10s
-![alt text](Lien_vers_image_snapshot_tree.png)
+- Enable nested virtualization (Virtualize Intel VT-x/EPT or AMD-V/RVI)
+- Adapted network configuration (Bridge or NAT) for Proxmox internet access
 
-(Vue de l'arbre des snapshots dans Proxmox)
-💾 Partie 2 : Les Backups (Protection à long terme)
-Scénario : Crash total du serveur ou suppression de la VM (Disaster Recovery).
-Configuration du stockage de sauvegarde (vzdump sur local).
-Exécution d'une sauvegarde complète (Mode Snapshot, Compression ZSTD).
-Incident Majeur : Suppression totale de la VM 100 (Simulant un crash disque).
-Résolution : Restauration complète depuis l'archive de sauvegarde.
-Comparatif technique :
-Caractéristique	Snapshot 📸	Backup 💾
-Stockage	Différentiel (sur le disque VM)	Archive compressée .vma.zst (Indépendant)
-Indépendance	Dépend du disque original	Autonome (peut être déplacé)
-Usage	Avant mise à jour / Test	Sinistre / Archivage / Ransomware
-![alt text](Lien_vers_image_backup_log.png)
+![VMware CPU Configuration](Lien_vers_image_vmware_settings.png)
 
-(Log de succès "TASK OK" lors du backup)
-![alt text](Lien_vers_image_restore_menu.png)
+## 📸 Part 1: Snapshots (Short-term Protection)
 
-(Interface de restauration de la VM)
-🤖 Automatisation
-Pour garantir la règle du RPO (Recovery Point Objective), une tâche planifiée a été créée :
-Fréquence : Toutes les 30 minutes (pour le test).
-Rétention : Conservation des 2 dernières copies uniquement (pour économiser l'espace).
-![alt text](Lien_vers_image_schedule.png)
+**Scenario**: Critical system modification (Simulating human error)
 
-(Tableau de planification des backups)
-🚀 Conclusion
-Ce projet a permis de valider :
-La faisabilité de la virtualisation imbriquée pour des labs complexes.
-La fiabilité du mécanisme de snapshot de Proxmox (basé sur QCOW2/LVM).
-La robustesse des sauvegardes complètes vzdump pour la reprise après sinistre.
-Améliorations futures possibles :
-Mise en place de Proxmox Backup Server (PBS) pour la déduplication.
-Envoi des sauvegardes vers un NAS externe ou le Cloud (Règle 3-2-1).
+1. Creation of a critical file on the Ubuntu VM (`important_data.txt`)
+2. Taking a snapshot named "Stable-State"
+3. **Incident**: Accidental deletion of the file using the `rm` command
+4. **Resolution**: Rollback via Proxmox
+
+| Action | Result |
+|--------|--------|
+| Snapshot Taken | 🟢 Success (State frozen) |
+| File Deletion | 🔴 File lost |
+| Rollback | 🟢 System restored in < 10s |
+
+![Snapshot Tree View](Lien_vers_image_snapshot_tree.png)
+
+## 💾 Part 2: Backups (Long-term Protection)
+
+**Scenario**: Total server crash or VM deletion (Disaster Recovery)
+
+1. Backup storage configuration (`vzdump` on local)
+2. Full backup execution (Snapshot Mode, ZSTD Compression)
+3. **Major Incident**: Complete deletion of VM 100 (Simulating disk crash)
+4. **Resolution**: Complete restoration from backup archive
+
+### Technical Comparison
+
+| Feature | Snapshot 📸 | Backup 💾 |
+|---------|------------|-----------|
+| Storage | Differential (on VM disk) | Compressed archive `.vma.zst` (Independent) |
+| Independence | Depends on original disk | Autonomous (can be moved) |
+| Use Case | Before update / Testing | Disaster / Archiving / Ransomware |
+
+![Backup Success Log](Lien_vers_image_backup_log.png)
+![VM Restore Interface](Lien_vers_image_restore_menu.png)
+
+## 🤖 Automation
+
+To guarantee the RPO (Recovery Point Objective) rule, a scheduled task was created:
+
+- **Frequency**: Every 30 minutes (for testing)
+- **Retention**: Keep only the last 2 copies (to save space)
+
+![Backup Schedule Table](Lien_vers_image_schedule.png)
+
+## 🚀 Conclusion
+
+This project validated:
+
+- The feasibility of nested virtualization for complex labs
+- The reliability of Proxmox's snapshot mechanism (based on QCOW2/LVM)
+- The robustness of `vzdump` full backups for disaster recovery
+
+### Possible Future Improvements
+
+- Implementation of Proxmox Backup Server (PBS) for deduplication
+- Sending backups to external NAS or Cloud (3-2-1 Rule)
