@@ -1,8 +1,8 @@
-# 🛡️ VM Backup and Restoration on Proxmox VE (Disaster Recovery)
+#  VM Backup and Restoration on Proxmox VE (Disaster Recovery)
 
 **Project**: Implementation of a Business Continuity Plan (BCP) and Disaster Recovery Plan (DRP) in a nested virtualized environment.
 
-## 📋 Overview
+##  Overview
 
 This project demonstrates the implementation of a resilient infrastructure using Proxmox Virtual Environment (VE). The objective is to master the two pillars of data protection:
 
@@ -11,7 +11,7 @@ This project demonstrates the implementation of a resilient infrastructure using
 
 The project was carried out in a **Nested Virtualization** environment, simulating a real datacenter from a standard workstation.
 
-## 🏗️ Lab Architecture
+##  Lab Architecture
 
 The infrastructure is based on a layered architecture:
 
@@ -37,7 +37,7 @@ To allow Proxmox to run within VMware, specific configuration was required:
 <img width="750" height="718" alt="image" src="https://github.com/user-attachments/assets/e6e84f8f-27b3-4b10-99dd-c41b764cc4dd" />
 
 
-## 📸 Part 1: Snapshots (Short-term Protection)
+##  Part 1: Snapshots (Short-term Protection)
 
 **Scenario**: Critical system modification (Simulating human error)
 
@@ -54,7 +54,7 @@ To allow Proxmox to run within VMware, specific configuration was required:
 
 ![Snapshot Tree View](Lien_vers_image_snapshot_tree.png)
 
-## 💾 Part 2: Backups (Long-term Protection)
+##  Part 2: Backups (Long-term Protection)
 
 **Scenario**: Total server crash or VM deletion (Disaster Recovery)
 
@@ -74,7 +74,7 @@ To allow Proxmox to run within VMware, specific configuration was required:
 ![Backup Success Log](Lien_vers_image_backup_log.png)
 ![VM Restore Interface](Lien_vers_image_restore_menu.png)
 
-## 🤖 Automation
+##  Automation
 
 To guarantee the RPO (Recovery Point Objective) rule, a scheduled task was created:
 
@@ -83,7 +83,7 @@ To guarantee the RPO (Recovery Point Objective) rule, a scheduled task was creat
 
 ![Backup Schedule Table](Lien_vers_image_schedule.png)
 
-## 🚀 Conclusion
+##  Conclusion
 
 This project validated:
 
