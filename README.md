@@ -92,7 +92,11 @@ After the RollbACK : <img width="443" height="52" alt="image" src="https://githu
 
  backup log :  <img width="781" height="490" alt="image" src="https://github.com/user-attachments/assets/a1b65540-e5a8-4599-9b52-355c59b0e8a9" />
 
-![VM Restore Interface](Lien_vers_image_restore_menu.png)
+ deleting the VM : <img width="511" height="236" alt="image" src="https://github.com/user-attachments/assets/9e2acd00-1ac5-4130-9651-86aa8f004255" />
+
+
+ VM restored via backup <img width="936" height="903" alt="image" src="https://github.com/user-attachments/assets/87f72564-9e5d-47d2-ab33-f3659dea74c7" />
+
 
 ##  Automation
 
@@ -100,8 +104,8 @@ To guarantee the RPO (Recovery Point Objective) rule, a scheduled task was creat
 
 - **Frequency**: Every 30 minutes (for testing)
 - **Retention**: Keep only the last 2 copies (to save space)
-
-![Backup Schedule Table](Lien_vers_image_schedule.png)
+- 
+ schedule backup every 30 min : <img width="1602" height="208" alt="image" src="https://github.com/user-attachments/assets/96144cef-401d-463e-9861-a8df9a48acca" />
 
 ##  Conclusion
 
