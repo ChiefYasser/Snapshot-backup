@@ -90,7 +90,8 @@ After the RollbACK : <img width="443" height="52" alt="image" src="https://githu
 | Independence | Depends on original disk | Autonomous (can be moved) |
 | Use Case | Before update / Testing | Disaster / Archiving / Ransomware |
 
-![Backup Success Log](Lien_vers_image_backup_log.png)
+ backup log :  <img width="781" height="490" alt="image" src="https://github.com/user-attachments/assets/a1b65540-e5a8-4599-9b52-355c59b0e8a9" />
+
 ![VM Restore Interface](Lien_vers_image_restore_menu.png)
 
 ##  Automation
