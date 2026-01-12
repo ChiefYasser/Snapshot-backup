@@ -61,7 +61,8 @@ To allow Proxmox to run within VMware, specific configuration was required:
 | File Deletion | 🔴 File lost |
 | Rollback | 🟢 System restored in < 10s |
 
-![Snapshot Tree View](Lien_vers_image_snapshot_tree.png)
+<img width="950" height="908" alt="image" src="https://github.com/user-attachments/assets/ecf2ad34-f3c9-44b7-91fa-db24971129a4" />
+
 
 ##  Part 2: Backups (Long-term Protection)
 
