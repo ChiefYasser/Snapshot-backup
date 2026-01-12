@@ -68,6 +68,9 @@ File deletion : <img width="447" height="67" alt="image" src="https://github.com
 ROllback : 
 <img width="649" height="165" alt="image" src="https://github.com/user-attachments/assets/968a0022-7577-46c0-8048-b2f0ada79186" />
 
+After the RollbACK : <img width="443" height="52" alt="image" src="https://github.com/user-attachments/assets/48bbe23a-5641-413f-a5e2-2cc67c3291cf" />
+
+
 
 
 ##  Part 2: Backups (Long-term Protection)
