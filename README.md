@@ -63,6 +63,8 @@ To allow Proxmox to run within VMware, specific configuration was required:
 
 <img width="950" height="908" alt="image" src="https://github.com/user-attachments/assets/ecf2ad34-f3c9-44b7-91fa-db24971129a4" />
 
+File deletion : <img width="447" height="67" alt="image" src="https://github.com/user-attachments/assets/56d9b72c-3c67-45bf-a290-eb8d70c4784b" />
+
 
 ##  Part 2: Backups (Long-term Protection)
 
