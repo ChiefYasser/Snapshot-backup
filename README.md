@@ -37,8 +37,10 @@ To allow Proxmox to run within VMware, specific configuration was required:
 <img width="750" height="718" alt="image" src="https://github.com/user-attachments/assets/e6e84f8f-27b3-4b10-99dd-c41b764cc4dd" />
 
 
-## VM UBUNTU 
+## VM UBUNTU installation
 <img width="1908" height="711" alt="image" src="https://github.com/user-attachments/assets/3cca6f90-5367-4ab4-bc9d-2e55675c4cc9" />
+<img width="1906" height="982" alt="image" src="https://github.com/user-attachments/assets/cb39deb5-9249-4ff5-882e-1cd011f29f43" />
+
 
 
 
