@@ -115,7 +115,4 @@ This project validated:
 - The reliability of Proxmox's snapshot mechanism (based on QCOW2/LVM)
 - The robustness of `vzdump` full backups for disaster recovery
 
-### Possible Future Improvements
 
-- Implementation of Proxmox Backup Server (PBS) for deduplication
-- Sending backups to external NAS or Cloud (3-2-1 Rule)
