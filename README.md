@@ -116,3 +116,9 @@ This project validated:
 - The robustness of `vzdump` full backups for disaster recovery
 
 
+### Possible Future Improvements
+
+- Implementation of Proxmox Backup Server (PBS) for deduplication
+- Sending backups to external NAS or Cloud (3-2-1 Rule)
+
+
